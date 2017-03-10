@@ -9,7 +9,7 @@
           var filtered;
           filtered = [];
 
-          console.log('items in arguments', _items, _field, _reverse);
+          if (DEBUG) console.log('items in arguments', _items, _field, _reverse);
 
           async.filter(_items, function(_item, _cb) {
             var isObject;
@@ -17,14 +17,14 @@
             isObject = angular.isObject(_item);
 
             if (isObject) {
-              console.log('_item is a object',_items, _item);
+              if (DEBUG) console.log('_item is a object',_items, _item);
             } else {
-              console.log('_item is not a object', _item);
+              if (DEBUG) console.log('_item is not a object', _item);
             }
             _cb(null, isObject);
 
           }, function (_err, _filtered) {
-            console.log('filtered', _items, _filtered);
+            if (DEBUG) console.log('filtered', _items, _filtered);
 
             var fieldName = _field.split('.')[1];
             async.sortBy(_filtered, function (_item, _cb) {
