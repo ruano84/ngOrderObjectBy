@@ -40,7 +40,7 @@
               }
               _cb(null, value);
             }, function (_err, _sorted) {
-              filtered = _filtered;
+              filtered = _sorted;
             });
           });
 
