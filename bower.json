@@ -7,7 +7,7 @@
     "Diego Urrutibehety"
   ],
   "description": "An Angular filter to order an object of objects by a given attribute on the children objects",
-  "main": "src/ng-order-object-by.js",
+  "main": "ng-order-object-by.min.js",
   "keywords": [
     "angular",
     "filter",
