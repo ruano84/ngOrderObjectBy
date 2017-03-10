@@ -5,7 +5,31 @@
     return angular
       .module('ngOrderObjectBy', [])
       .filter('orderObjectBy', function() {
-        return function (items, field, reverse) {
+        function orderObjectBy() {
+          var filtered;
+          filtered = [];
+
+          async.map(items, function(_item, _cb) {
+
+            if (angular.isObject(_item)) {
+              _cb(null, _item);
+            }
+
+            //item.key = key;
+
+          }, function (_err, _filtered) {
+            console.log('filtered', _filtered);
+            filtered = _filtered;
+          });
+
+          return filtered;
+        }
+
+        orderObjectBy.$stateful = true;
+
+        return orderObjectBy;
+/*
+        function (items, field, reverse) {
 
           function isNumeric(n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
@@ -13,10 +37,7 @@
           
           var filtered = [];
 
-          angular.forEach(items, function(item, key) {
-            item.key = key;
-            filtered.push(item);
-          });
+          // angular.forEach(items, function(item, key) {
 
           function index(obj, i) {
             return obj[i];
@@ -47,6 +68,7 @@
 
           return filtered;
         };
+        */
       });
   }
 )(angular);
