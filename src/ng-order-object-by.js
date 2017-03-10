@@ -9,17 +9,39 @@
           var filtered;
           filtered = [];
 
-          async.map(_items, function(_item, _cb) {
+          console.log('items in arguments', _items, _field, _reverse);
 
-            if (angular.isObject(_item)) {
-              _cb(null, _item);
+          async.filter(_items, function(_item, _cb) {
+            var isObject;
+
+            isObject = angular.isObject(_item);
+
+            if (isObject) {
+              console.log('_item is a object',_items, _item);
+            } else {
+              console.log('_item is not a object', _item);
             }
-
-            //item.key = key;
+            _cb(null, isObject);
 
           }, function (_err, _filtered) {
-            console.log('filtered', _filtered);
-            filtered = _filtered;
+            console.log('filtered', _items, _filtered);
+
+            var fieldName = _field.split('.')[1];
+            async.sortBy(_filtered, function (_item, _cb) {
+              var value;
+
+              if (!angular.isDate(_item[fieldName])) {
+                value = _item[fieldName];
+              } else {
+                value = moment(_item[fieldName]).format('x');
+              }
+              if (_reverse && _reverse === true) {
+                value = value * -1;
+              }
+              _cb(null, value);
+            }, function (_err, _sorted) {
+              filtered = _filtered;
+            });
           });
 
           return filtered;
