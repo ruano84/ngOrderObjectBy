@@ -5,11 +5,11 @@
     return angular
       .module('ngOrderObjectBy', [])
       .filter('orderObjectBy', function() {
-        function orderObjectBy() {
+        function orderObjectBy(_items, _field, _reverse) {
           var filtered;
           filtered = [];
 
-          async.map(items, function(_item, _cb) {
+          async.map(_items, function(_item, _cb) {
 
             if (angular.isObject(_item)) {
               _cb(null, _item);
